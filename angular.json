@@ -8,7 +8,7 @@
       "prefix": "my-org",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@nrwl/angular:webpack-browser",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/app1",
@@ -55,13 +55,13 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@nrwl/web:file-server",
           "configurations": {
             "production": {
-              "browserTarget": "app1:build:production"
+              "buildTarget": "app1:build:production"
             },
             "development": {
-              "browserTarget": "app1:build:development"
+              "buildTarget": "app1:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -114,6 +114,113 @@
           "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": ["apps/app1-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "lib1": {
+      "projectType": "library",
+      "root": "libs/lib1",
+      "sourceRoot": "libs/lib1/src",
+      "prefix": "my-org",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/lib1"],
+          "options": {
+            "jestConfig": "libs/lib1/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/lib1/src/**/*.ts",
+              "libs/lib1/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "lib2": {
+      "projectType": "library",
+      "root": "libs/lib2",
+      "sourceRoot": "libs/lib2/src",
+      "prefix": "my-org",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "outputs": ["dist/libs/lib2"],
+          "options": {
+            "project": "libs/lib2/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/lib2/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/lib2/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/lib2"],
+          "options": {
+            "jestConfig": "libs/lib2/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/lib2/src/**/*.ts",
+              "libs/lib2/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "lib3": {
+      "projectType": "library",
+      "root": "libs/lib3",
+      "sourceRoot": "libs/lib3/src",
+      "prefix": "my-org",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/lib3"],
+          "options": {
+            "project": "libs/lib3/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/lib3/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/lib3/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/lib3"],
+          "options": {
+            "jestConfig": "libs/lib3/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/lib3/src/**/*.ts",
+              "libs/lib3/src/**/*.html"
+            ]
           }
         }
       }
