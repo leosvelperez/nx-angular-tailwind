@@ -1,6 +1,17 @@
+# nx-buildable-publishable-libs-tailwind
 
+This repo showcases an existing issue when using TailwindCSS with incremental builds in an Nx workspace. The issue arises due to `ng-packagr` not supporting custom PostCSS config nor TailwindCSS (see https://github.com/ng-packagr/ng-packagr/issues/1943#issuecomment-820366833 and https://github.com/ng-packagr/ng-packagr/issues/1418#issuecomment-725358476).
 
-# MyOrg
+There are two apps in the workspace setup with TailwindCSS. They both consume the same libraries and we have one non buildable library, one buildable library and one publishable library. The apps and each library contain some buttons with some TailwindCSS classes and some buttons using the `@apply` directive.
+
+- `app1`: Uses the `@nrwl/angular:*` executors for incremental building.
+- `app2`: Uses the `@angular-devkit/build-angular:*` builders.
+
+When running `nx serve app1`, Nx will run the `app1` dependencies build target and then will build the app. As a result of this, we can check the button using the CSS class with the `@apply` directive is broken for the buildable and publishable libraries. The `@apply` directive was not expanded due to `ng-packagr` not processing it.
+
+When running `nx serve app2`, the app will be built pulling in the code from the libs directly. As a result, all buttons are rendered correctly.
+
+------------------
 
 This project was generated using [Nx](https://nx.dev).
 
