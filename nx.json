@@ -34,6 +34,13 @@
       "tags": [],
       "implicitDependencies": ["app1"]
     },
+    "app2": {
+      "tags": []
+    },
+    "app2-e2e": {
+      "tags": [],
+      "implicitDependencies": ["app2"]
+    },
     "lib1": {
       "tags": []
     },
