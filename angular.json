@@ -332,7 +332,7 @@
           "outputs": ["dist/libs/lib2"],
           "options": {
             "project": "libs/lib2/ng-package.json",
-            "tailwindConfig": "tailwind.shared.config.js"
+            "tailwindConfig": "libs/tailwind/tailwind.config.js"
           },
           "configurations": {
             "production": {
@@ -363,7 +363,7 @@
         }
       },
       "tags": [],
-      "implicitDependencies": ["angular"]
+      "implicitDependencies": ["angular", "tailwind"]
     },
     "lib3": {
       "projectType": "library",
@@ -402,6 +402,21 @@
               "libs/lib3/src/**/*.ts",
               "libs/lib3/src/**/*.html"
             ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "tailwind": {
+      "root": "libs/tailwind",
+      "sourceRoot": "libs/tailwind",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/tailwind/**/*.ts"]
           }
         }
       },
