@@ -1,4 +1,5 @@
 const { createGlobPatternsForDependencies } = require('@nrwl/angular/tailwind');
+const sharedTailwindConfig = require('../../tailwind.shared.config');
 
 module.exports = {
   mode: 'jit',
@@ -8,7 +9,10 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    ...sharedTailwindConfig.theme,
+    extend: {
+      ...sharedTailwindConfig.theme.extend,
+    },
   },
   variants: {
     extend: {},

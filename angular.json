@@ -1,6 +1,61 @@
 {
   "version": 1,
   "projects": {
+    "angular": {
+      "root": "libs/angular",
+      "sourceRoot": "libs/angular/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/angular/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/angular"],
+          "options": {
+            "jestConfig": "libs/angular/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/angular",
+            "tsConfig": "libs/angular/tsconfig.lib.json",
+            "packageJson": "libs/angular/package.json",
+            "main": "libs/angular/src/index.ts",
+            "assets": [
+              "libs/angular/*.md",
+              {
+                "input": "./libs/angular/src",
+                "glob": "**/!(*.ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/angular/src",
+                "glob": "**/*.d.ts",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/angular",
+                "glob": "generators.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/angular",
+                "glob": "executors.json",
+                "output": "."
+              }
+            ]
+          }
+        }
+      }
+    },
     "app1": {
       "projectType": "application",
       "root": "apps/app1",
@@ -128,7 +183,7 @@
       "prefix": "my-org",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@nrwl/angular:webpack-browser",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/app2",
@@ -175,13 +230,13 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@nrwl/web:file-server",
           "configurations": {
             "production": {
-              "browserTarget": "app2:build:production"
+              "buildTarget": "app2:build:production"
             },
             "development": {
-              "browserTarget": "app2:build:development"
+              "buildTarget": "app2:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -273,10 +328,11 @@
       "prefix": "my-org",
       "architect": {
         "build": {
-          "builder": "@nrwl/angular:ng-packagr-lite",
+          "builder": "./dist/libs/angular:ng-packagr-lite",
           "outputs": ["dist/libs/lib2"],
           "options": {
-            "project": "libs/lib2/ng-package.json"
+            "project": "libs/lib2/ng-package.json",
+            "tailwindConfig": "tailwind.shared.config.js"
           },
           "configurations": {
             "production": {
@@ -306,7 +362,8 @@
           }
         }
       },
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["angular"]
     },
     "lib3": {
       "projectType": "library",

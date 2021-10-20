@@ -2,3 +2,9 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+:root {
+  --primary-light: #f7b3b3;
+  --primary: #cc2f3c;
+  --primary-dark: #62060e;
+}
