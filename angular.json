@@ -54,7 +54,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": []
     },
     "app1": {
       "projectType": "application",
@@ -411,15 +412,7 @@
       "root": "libs/tailwind",
       "sourceRoot": "libs/tailwind",
       "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["libs/tailwind/**/*.ts"]
-          }
-        }
-      },
+      "architect": {},
       "tags": []
     }
   }
