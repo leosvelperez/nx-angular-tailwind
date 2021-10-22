@@ -89,7 +89,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "app1-e2e": {
       "root": "apps/app1-e2e",
@@ -116,7 +117,9 @@
             "lintFilePatterns": ["apps/app1-e2e/**/*.{js,ts}"]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["app1"]
     },
     "app2": {
       "projectType": "application",
@@ -206,7 +209,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "app2-e2e": {
       "root": "apps/app2-e2e",
@@ -232,7 +236,9 @@
             "lintFilePatterns": ["apps/app2-e2e/**/*.{js,ts}"]
           }
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["app2"]
     },
     "lib1": {
       "projectType": "library",
@@ -257,7 +263,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": []
     },
     "lib2": {
       "projectType": "library",
@@ -298,7 +305,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": []
     },
     "lib3": {
       "projectType": "library",
@@ -339,39 +347,8 @@
             ]
           }
         }
-      }
-    }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/angular",
-    "packageManager": "yarn"
-  },
-  "schematics": {
-    "@nrwl/angular": {
-      "application": {
-        "linter": "eslint"
       },
-      "library": {
-        "linter": "eslint"
-      },
-      "storybook-configuration": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/angular:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nrwl/angular:component": {
-      "style": "scss"
+      "tags": []
     }
-  },
-  "defaultProject": "app1"
+  }
 }
