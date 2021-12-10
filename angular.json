@@ -92,35 +92,6 @@
       },
       "tags": []
     },
-    "app1-e2e": {
-      "root": "apps/app1-e2e",
-      "sourceRoot": "apps/app1-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/app1-e2e/cypress.json",
-            "devServerTarget": "app1:serve:development",
-            "tsConfig": "apps/app1-e2e/tsconfig.json"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "app1:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["apps/app1-e2e/**/*.{js,ts}"]
-          }
-        }
-      },
-      "tags": [],
-      "implicitDependencies": ["app1"]
-    },
     "app2": {
       "projectType": "application",
       "root": "apps/app2",
@@ -128,7 +99,7 @@
       "prefix": "my-org",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@nrwl/angular:webpack-browser",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/app2",
@@ -175,13 +146,13 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@nrwl/web:file-server",
           "configurations": {
             "production": {
-              "browserTarget": "app2:build:production"
+              "buildTarget": "app2:build:production"
             },
             "development": {
-              "browserTarget": "app2:build:development"
+              "buildTarget": "app2:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -211,34 +182,6 @@
         }
       },
       "tags": []
-    },
-    "app2-e2e": {
-      "root": "apps/app2-e2e",
-      "sourceRoot": "apps/app2-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/app2-e2e/cypress.json",
-            "devServerTarget": "app2:serve:development"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "app2:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["apps/app2-e2e/**/*.{js,ts}"]
-          }
-        }
-      },
-      "tags": [],
-      "implicitDependencies": ["app2"]
     },
     "lib1": {
       "projectType": "library",
@@ -276,7 +219,8 @@
           "builder": "@nrwl/angular:ng-packagr-lite",
           "outputs": ["dist/libs/lib2"],
           "options": {
-            "project": "libs/lib2/ng-package.json"
+            "project": "libs/lib2/ng-package.json",
+            "tailwindConfig": "libs/tailwind/tailwind.config.js"
           },
           "configurations": {
             "production": {
@@ -306,7 +250,8 @@
           }
         }
       },
-      "tags": []
+      "tags": [],
+      "implicitDependencies": ["tailwind"]
     },
     "lib3": {
       "projectType": "library",
@@ -348,6 +293,13 @@
           }
         }
       },
+      "tags": []
+    },
+    "tailwind": {
+      "root": "libs/tailwind",
+      "sourceRoot": "libs/tailwind",
+      "projectType": "library",
+      "architect": {},
       "tags": []
     }
   }
