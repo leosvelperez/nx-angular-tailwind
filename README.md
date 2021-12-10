@@ -5,6 +5,7 @@ This repo showcases how to use TailwindCSS with Angular in an Nx workspace.
 The repo contains the following projects:
 
 - `app1`: An Angular application which imports the different libraries in the workspace.
+- `app2`: An Angular application which imports the different libraries in the workspace.
 - `lib1`: An Angular non-buildable library.
 - `lib2`: An Angular buildable library using a shared Tailwind configuration.
 - `lib3`: An Angular publishable library with Tailwind configured.

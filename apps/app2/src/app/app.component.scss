@@ -1,0 +1,7 @@
+.tw-primary-btn {
+  // apply group style
+  @apply py-2 px-3 m-2;
+  @apply bg-primary hover:bg-primary-dark;
+  @apply rounded-md;
+  @apply text-white;
+}

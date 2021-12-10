@@ -92,34 +92,96 @@
       },
       "tags": []
     },
-    "app1-e2e": {
-      "root": "apps/app1-e2e",
-      "sourceRoot": "apps/app1-e2e/src",
+    "app2": {
       "projectType": "application",
+      "root": "apps/app2",
+      "sourceRoot": "apps/app2/src",
+      "prefix": "my-org",
       "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+        "build": {
+          "builder": "@nrwl/angular:webpack-browser",
+          "outputs": ["{options.outputPath}"],
           "options": {
-            "cypressConfig": "apps/app1-e2e/cypress.json",
-            "devServerTarget": "app1:serve:development",
-            "tsConfig": "apps/app1-e2e/tsconfig.json"
+            "outputPath": "dist/apps/app2",
+            "index": "apps/app2/src/index.html",
+            "main": "apps/app2/src/main.ts",
+            "polyfills": "apps/app2/src/polyfills.ts",
+            "tsConfig": "apps/app2/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["apps/app2/src/favicon.ico", "apps/app2/src/assets"],
+            "styles": ["apps/app2/src/styles.scss"],
+            "scripts": []
           },
           "configurations": {
             "production": {
-              "devServerTarget": "app1:serve:production"
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/app2/src/environments/environment.ts",
+                  "with": "apps/app2/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@nrwl/web:file-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "app2:build:production"
+            },
+            "development": {
+              "buildTarget": "app2:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "app2:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["apps/app1-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/app2/src/**/*.ts",
+              "apps/app2/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/app2"],
+          "options": {
+            "jestConfig": "apps/app2/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
-      "tags": [],
-      "implicitDependencies": ["app1"]
+      "tags": []
     },
     "lib1": {
       "projectType": "library",
