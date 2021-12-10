@@ -1,62 +1,6 @@
 {
   "version": 1,
   "projects": {
-    "angular": {
-      "root": "libs/angular",
-      "sourceRoot": "libs/angular/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["libs/angular/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/angular"],
-          "options": {
-            "jestConfig": "libs/angular/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "builder": "@nrwl/node:package",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/libs/angular",
-            "tsConfig": "libs/angular/tsconfig.lib.json",
-            "packageJson": "libs/angular/package.json",
-            "main": "libs/angular/src/index.ts",
-            "assets": [
-              "libs/angular/*.md",
-              {
-                "input": "./libs/angular/src",
-                "glob": "**/!(*.ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/angular/src",
-                "glob": "**/*.d.ts",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/angular",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./libs/angular",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "app1": {
       "projectType": "application",
       "root": "apps/app1",
@@ -177,125 +121,6 @@
       "tags": [],
       "implicitDependencies": ["app1"]
     },
-    "app2": {
-      "projectType": "application",
-      "root": "apps/app2",
-      "sourceRoot": "apps/app2/src",
-      "prefix": "my-org",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/angular:webpack-browser",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/app2",
-            "index": "apps/app2/src/index.html",
-            "main": "apps/app2/src/main.ts",
-            "polyfills": "apps/app2/src/polyfills.ts",
-            "tsConfig": "apps/app2/tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": ["apps/app2/src/favicon.ico", "apps/app2/src/assets"],
-            "styles": ["apps/app2/src/styles.scss"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "apps/app2/src/environments/environment.ts",
-                  "with": "apps/app2/src/environments/environment.prod.ts"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@nrwl/web:file-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "app2:build:production"
-            },
-            "development": {
-              "buildTarget": "app2:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "app2:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/app2/src/**/*.ts",
-              "apps/app2/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/app2"],
-          "options": {
-            "jestConfig": "apps/app2/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
-    },
-    "app2-e2e": {
-      "root": "apps/app2-e2e",
-      "sourceRoot": "apps/app2-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/app2-e2e/cypress.json",
-            "devServerTarget": "app2:serve:development"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "app2:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["apps/app2-e2e/**/*.{js,ts}"]
-          }
-        }
-      },
-      "tags": [],
-      "implicitDependencies": ["app2"]
-    },
     "lib1": {
       "projectType": "library",
       "root": "libs/lib1",
@@ -329,7 +154,7 @@
       "prefix": "my-org",
       "architect": {
         "build": {
-          "builder": "./dist/libs/angular:ng-packagr-lite",
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "outputs": ["dist/libs/lib2"],
           "options": {
             "project": "libs/lib2/ng-package.json",
@@ -364,7 +189,7 @@
         }
       },
       "tags": [],
-      "implicitDependencies": ["angular", "tailwind"]
+      "implicitDependencies": ["tailwind"]
     },
     "lib3": {
       "projectType": "library",

@@ -1,7 +1,5 @@
 # tailwind
 
-This library was generated with [Nx](https://nx.dev).
+This library contains a shared Tailwind configuration. The configuration uses CSS vars to allow each application to provide different values.
 
-## Running unit tests
-
-Run `nx test tailwind` to execute the unit tests via [Jest](https://jestjs.io).
+The library is added as an implicit dependency for each consuming project.

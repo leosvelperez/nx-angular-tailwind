@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@my-org/angular": ["libs/angular/src/index.ts"],
       "@my-org/lib1": ["libs/lib1/src/index.ts"],
       "@my-org/lib2": ["libs/lib2/src/index.ts"],
       "@my-org/lib3": ["libs/lib3/src/index.ts"]
